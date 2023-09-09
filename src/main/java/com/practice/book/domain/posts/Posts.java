@@ -1,5 +1,6 @@
 package com.practice.book.domain.posts;
 
+import com.practice.book.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import javax.persistence.Id;
 @Getter
 @NoArgsConstructor
 @Entity // jpa 어노테이션, 주요 어노테이션일수록 클래스와 가깝게 둔다
-public class Posts {
+public class Posts extends BaseTimeEntity {
     @Id //pk 필드
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
