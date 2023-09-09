@@ -7,3 +7,9 @@ spring:
   h2:
     console:
       enabled: true
+
+#한글깨짐 설정
+server:
+  servlet:
+    encoding:
+      force-response: true
