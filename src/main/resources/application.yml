@@ -9,6 +9,8 @@ spring:
   h2:
     console:
       enabled: true
+  session:
+    store-type: jdbc
 
 #한글깨짐 설정
 server:
