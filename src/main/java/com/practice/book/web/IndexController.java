@@ -1,5 +1,6 @@
 package com.practice.book.web;
 
+import com.practice.book.config.auth.LoginUser;
 import com.practice.book.config.auth.dto.SessionUser;
 import com.practice.book.domain.posts.PostsService;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +19,12 @@ public class IndexController {
     private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
 
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+//        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+//        @LoginUser annotaion을 사용함으로써 삭제되는 코드
+
         if(user != null) {
             model.addAttribute("userName", user.getName());
         }
