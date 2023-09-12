@@ -1,10 +1,14 @@
 package com.practice.book.web;
 
+import com.practice.book.config.auth.SecurityConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -16,7 +20,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 //@SpringBootTest
-@WebMvcTest
+@WebMvcTest(controllers = HelloController.class,
+        excludeFilters = {
+                @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
+        }
+)
 @AutoConfigureMockMvc
 public class HelloControllerTest {
 
@@ -24,6 +32,7 @@ public class HelloControllerTest {
     private MockMvc mockMvc;
 
     @Test
+    @WithMockUser(roles = "USER")
     public void hello_Return() throws Exception {
         String hello = "hello!!!!!!!!!!!!!!!!!!";
 
@@ -34,6 +43,7 @@ public class HelloControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void helloDto_리턴() throws Exception {
         String hello = "test";
         int amount = 1000;
