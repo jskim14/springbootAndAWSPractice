@@ -36,8 +36,9 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-jar {
-    enabled = false
+bootJar {
+    bootJar.enabled= true
+    jar.enabled = false
 }
 
 tasks.named('test') {
