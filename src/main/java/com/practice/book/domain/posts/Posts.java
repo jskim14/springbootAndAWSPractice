@@ -20,11 +20,11 @@ public class Posts extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "TITLE IS NULL")
     @Column(length = 500, nullable = false)
     private String title;
 
-    @NotBlank
+    @NotBlank(message = "CONTENT IS NULL")
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
