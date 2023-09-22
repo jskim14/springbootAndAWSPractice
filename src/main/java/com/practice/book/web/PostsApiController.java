@@ -1,5 +1,7 @@
 package com.practice.book.web;
 
+import com.practice.book.core.response.CommonResponse;
+import com.practice.book.domain.posts.Posts;
 import com.practice.book.domain.posts.PostsService;
 import com.practice.book.web.dto.PostResponseDto;
 import com.practice.book.web.dto.PostsSaveRequestsDto;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -22,8 +25,9 @@ public class PostsApiController {
     private final PostsService postsService;
 
     @PostMapping("/posts")
-    public Long save(@RequestBody PostsSaveRequestsDto postsSaveRequestsDto) {
-        return postsService.save(postsSaveRequestsDto);
+    public @ResponseBody CommonResponse<Posts> save(@RequestBody PostsSaveRequestsDto postsSaveRequestsDto) {
+
+        return CommonResponse.success(postsService.save(postsSaveRequestsDto));
     }
 
     @PutMapping("/posts/{id}")
