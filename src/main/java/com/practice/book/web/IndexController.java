@@ -3,6 +3,7 @@ package com.practice.book.web;
 import com.practice.book.config.auth.LoginUser;
 import com.practice.book.config.auth.dto.SessionUser;
 import com.practice.book.domain.posts.PostsService;
+import com.practice.book.web.dto.AlertMsgDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,13 @@ public class IndexController {
             model.addAttribute("userName", user.getName());
         }
         return "index"; //src/main/resources/templates/index.mustache 반환
+    }
+
+    @GetMapping("/login")
+    public String alert(Model model) {
+        model.addAttribute("alertParam", new AlertMsgDto("로그인이 필요한 페이지 입니다. 회원가입을 해주세요^^", "/"));
+
+        return "alert-page";
     }
 
     @GetMapping("/posts/save")
