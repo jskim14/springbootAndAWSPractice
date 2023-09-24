@@ -1,0 +1,10 @@
+{{>layout/header}}
+
+<script>
+    {{#alertParam}}
+        alert('{{message}}');
+        location.href= '{{redirectUrl}}';
+    {{/alertParam}}
+</script>
+
+{{>layout/footer}}
