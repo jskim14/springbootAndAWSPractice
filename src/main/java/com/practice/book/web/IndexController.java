@@ -19,6 +19,9 @@ public class IndexController {
     private final PostsService postsService;
     private final HttpSession httpSession;
 
+    /*
+    * 메인페이지 로딩
+    * */
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
@@ -32,6 +35,9 @@ public class IndexController {
         return "index"; //src/main/resources/templates/index.mustache 반환
     }
 
+    /*
+    * security login 화면, alert창 반환
+    * */
     @GetMapping("/login")
     public String alert(Model model) {
         model.addAttribute("alertParam", new AlertMsgDto("로그인이 필요한 페이지 입니다. 회원가입을 해주세요^^", "/"));
@@ -39,6 +45,9 @@ public class IndexController {
         return "alert-page";
     }
 
+    /*
+    * 글 등록 페이지 반환
+    * */
     @GetMapping("/posts/save")
     public String postsSave(Model model, @LoginUser SessionUser user) {
         if(user != null) {
@@ -48,6 +57,9 @@ public class IndexController {
         return "posts-save";
     }
 
+    /*
+    * 글 상세내용 확인, 수정 페이지 반환
+    * */
     @GetMapping("/posts/update/{id}")
     public String postsUpdate(@PathVariable Long id, Model model) {
         model.addAttribute("post", postsService.findById(id));

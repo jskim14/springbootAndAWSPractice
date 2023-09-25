@@ -24,22 +24,34 @@ public class PostsApiController {
 
     private final PostsService postsService;
 
+    /*
+    * 글 등록
+    * */
     @PostMapping("/posts")
     public @ResponseBody CommonResponse<Posts> save(@RequestBody PostsSaveRequestsDto postsSaveRequestsDto) {
 
         return CommonResponse.success(postsService.save(postsSaveRequestsDto));
     }
 
+    /*
+    * 작성 글 수정
+    * */
     @PutMapping("/posts/{id}")
     public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto postsUpdateRequestDto) {
         return postsService.update(id, postsUpdateRequestDto);
     }
 
+    /*
+    * Id 번호로 특정 글 반환
+    * */
     @GetMapping("/posts/{id}")
     public PostResponseDto findById(@PathVariable Long id) {
         return postsService.findById(id);
     }
 
+    /*
+    * 작성 글 삭제
+    * */
     @DeleteMapping("/posts/{id}")
     public Long delete(@PathVariable Long id) {
         postsService.delete(id);
