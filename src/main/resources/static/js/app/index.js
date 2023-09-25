@@ -29,8 +29,8 @@ var main = {
         }).done(function() {
             alert('글이 등록되었습니다.');
             window.location.href = '/';
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
+        }).fail(function (event) {
+            alert(event.responseJSON.error.detail);
         });
     },
     update : function () {
@@ -50,8 +50,8 @@ var main = {
         }).done(function() {
             alert('글이 수정되었습니다.');
             window.location.href = '/';
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
+        }).fail(function (event) {
+            alert(event.responseJSON.error.detail);
         });
     },
     delete : function () {
@@ -65,8 +65,8 @@ var main = {
         }).done(function() {
             alert('글이 삭제되었습니다.');
             window.location.href = '/';
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
+        }).fail(function (event) {
+            alert(event.responseJSON.error.detail);
         });
     }
 
