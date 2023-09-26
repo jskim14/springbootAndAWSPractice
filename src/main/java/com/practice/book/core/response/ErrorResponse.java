@@ -7,7 +7,6 @@ import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 import javax.validation.ConstraintViolation;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,24 +17,25 @@ public class ErrorResponse {
     private HttpStatus httpStatus;
     private int status;
     private String title;
-    private List<String> detail;
+    private String detail;
 
     @Builder
-    public ErrorResponse(HttpStatus httpStatus, List<String> of) {
+    public ErrorResponse(HttpStatus httpStatus, String message) {
         this.httpStatus = httpStatus;
         this.status = httpStatus.value();
-        this.title = httpStatus.getReasonPhrase();
-        this.detail = of;
+        this.title = httpStatus.name();
+        this.detail = message;
     }
 
-
     public static ErrorResponse of(HttpStatus httpStatus, Set<ConstraintViolation<?>> violations) {
+
         return new ErrorResponse(httpStatus, ConstraintViolationError.of(violations));
     }
 
     private static class ConstraintViolationError {
-        public static List<String> of(Set<ConstraintViolation<?>> violations) {
-            return violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.toList());
+        public static String of(Set<ConstraintViolation<?>> violations) {
+
+            return violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.joining(", "));
         }
     }
 }
