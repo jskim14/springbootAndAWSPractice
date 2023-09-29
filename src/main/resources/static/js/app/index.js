@@ -12,6 +12,10 @@ var main = {
         $('#btn-delete').on('click', function () {
             _this.delete();
         });
+
+        $('#btn-withdraw').on('click', function () {
+            _this.withdraw();
+        });
     },
     save : function () {
         var data = {
@@ -68,8 +72,27 @@ var main = {
         }).fail(function (event) {
             alert(event.responseJSON.error.detail);
         });
-    }
+    },
 
+    withdraw : function () {
+        var id = $('#btn-withdraw').val();
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/v1/user/'+id,
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8'
+        }).done(function() {
+            alert('안녕히 가세요...');
+            $.ajax({
+                url: '/logout'
+            }).done(function () {
+                location.reload();
+                location.href = '/';
+            });
+        }).fail(function (event) {
+            alert(event.responseJSON.error.detail);
+        });
+    }
 };
 
 main.init();

@@ -30,7 +30,7 @@ public class IndexController {
 //        @LoginUser annotaion을 사용함으로써 삭제되는 코드
 
         if(user != null) {
-            model.addAttribute("userName", user.getName());
+            model.addAttribute("userInfo", user);
         }
         return "index"; //src/main/resources/templates/index.mustache 반환
     }
