@@ -31,4 +31,14 @@ public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CommonResponse.fail(errorResponse));
     }
+
+    @ExceptionHandler({NullPointerException.class})
+    public final ResponseEntity<CommonResponse<?>> nullPointHandler(RuntimeException exception, WebRequest request){
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                .message("NO DATA FOUND")
+                .build();
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(CommonResponse.fail(errorResponse));
+    }
 }
