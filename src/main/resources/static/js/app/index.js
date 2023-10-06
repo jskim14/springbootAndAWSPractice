@@ -40,7 +40,8 @@ var main = {
     update : function () {
         var data = {
             title: $('#title').val(),
-            content: $('#content').val()
+            content: $('#content').val(),
+            author : $('#author').val()
         };
 
         var id = $('#id').val();
@@ -56,21 +57,27 @@ var main = {
             window.location.href = '/';
         }).fail(function (event) {
             alert(event.responseJSON.error.detail);
+            location.reload();
         });
     },
     delete : function () {
+        var data = {
+            author : $('#author').val()
+        };
         var id = $('#id').val();
 
         $.ajax({
             type: 'DELETE',
             url: '/api/v1/posts/'+id,
             dataType: 'json',
-            contentType:'application/json; charset=utf-8'
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(data)
         }).done(function() {
             alert('글이 삭제되었습니다.');
             window.location.href = '/';
         }).fail(function (event) {
             alert(event.responseJSON.error.detail);
+            location.reload();
         });
     },
 
