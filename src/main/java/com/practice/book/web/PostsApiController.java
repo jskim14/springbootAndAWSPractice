@@ -1,9 +1,12 @@
 package com.practice.book.web;
 
+import com.practice.book.config.auth.LoginUser;
+import com.practice.book.config.auth.dto.SessionUser;
 import com.practice.book.core.response.CommonResponse;
 import com.practice.book.domain.posts.Posts;
 import com.practice.book.domain.posts.PostsService;
 import com.practice.book.web.dto.PostResponseDto;
+import com.practice.book.web.dto.PostsDeleteRequestDto;
 import com.practice.book.web.dto.PostsSaveRequestsDto;
 import com.practice.book.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -37,8 +40,8 @@ public class PostsApiController {
     * 작성 글 수정
     * */
     @PutMapping("/posts/{id}")
-    public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto postsUpdateRequestDto) {
-        return postsService.update(id, postsUpdateRequestDto);
+    public @ResponseBody CommonResponse<Posts> update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto postsUpdateRequestDto, @LoginUser SessionUser user) {
+        return CommonResponse.success(postsService.update(id, postsUpdateRequestDto, user));
     }
 
     /*
@@ -53,8 +56,8 @@ public class PostsApiController {
     * 작성 글 삭제
     * */
     @DeleteMapping("/posts/{id}")
-    public Long delete(@PathVariable Long id) {
-        postsService.delete(id);
+    public Long delete(@PathVariable Long id, @RequestBody PostsDeleteRequestDto postsDeleteRequestDto, @LoginUser SessionUser user) {
+        postsService.delete(id, postsDeleteRequestDto, user);
         return id;
     }
 
