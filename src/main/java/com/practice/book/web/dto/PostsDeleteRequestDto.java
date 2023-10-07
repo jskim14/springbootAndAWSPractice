@@ -6,15 +6,11 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class PostsUpdateRequestDto {
-    private String title;
-    private String content;
+public class PostsDeleteRequestDto {
     private String author;
 
     @Builder
-    public PostsUpdateRequestDto(String title, String content, String author) {
-        this.title = title;
-        this.content = content;
+    public PostsDeleteRequestDto(String author) {
         this.author = author;
     }
 }

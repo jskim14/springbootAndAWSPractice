@@ -1,6 +1,7 @@
 package com.practice.book.domain.posts;
 
 import com.practice.book.domain.BaseTimeEntity;
+import com.practice.book.web.dto.PostsUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,8 +39,9 @@ public class Posts extends BaseTimeEntity {
         this.author = author;
     }
 
-    public void update(String title, String content) {
-        this.title = title;
-        this.content = content;
+    public Posts update(PostsUpdateRequestDto postsUpdateRequestDto) {
+        this.title = postsUpdateRequestDto.getTitle();
+        this.content = postsUpdateRequestDto.getContent();
+        return this;
     }
 }
