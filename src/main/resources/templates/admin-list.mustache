@@ -1,0 +1,28 @@
+{{>layout/header}}
+<br>
+<br>
+<h4>회원목록</h4>
+<table class="table table-horizontal table-bordered">
+    <thead class="thead-strong">
+    <tr>
+        <th style="width: 200px">User Seq</th>
+        <th>가입 이름</th>
+        <th>이메일</th>
+        <th>Role</th>
+        <th>처리</th>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+    {{#user}}
+    <tr>
+        <td >{{id}}</td>
+        <td>{{name}}</td>
+        <td>{{email}}</td>
+        <td>{{role}}</td>
+        <td><button type="button" class="btn btn-info active" id="btn-withdraw" value="{{id}}">탈퇴 처리</button></td>
+    </tr>
+    {{/user}}
+    </tbody>
+</table>
+
+{{>layout/footer}}
