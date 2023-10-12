@@ -74,7 +74,7 @@ public class IndexController {
     public String userList(Model model, @LoginUser SessionUser user) {
         if(user != null && user.getRole().equals(Role.ADMIN)){
             model.addAttribute("user", userService.findAll());
-
+            model.addAttribute("posts", postsService.findAllDesc());
             return "admin-list";
         }
         model.addAttribute("alertParam", new AlertMsgDto("관리자만 접근이 가능합니다!!!", "/"));

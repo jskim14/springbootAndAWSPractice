@@ -64,7 +64,7 @@ var main = {
         var data = {
             author : $('#author').val()
         };
-        var id = $('#id').val();
+        var id = $('#id').val() || document.getElementById("id").innerText;
 
         $.ajax({
             type: 'DELETE',
