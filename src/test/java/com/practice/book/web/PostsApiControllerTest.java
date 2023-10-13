@@ -1,8 +1,11 @@
 package com.practice.book.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.practice.book.config.auth.dto.SessionUser;
 import com.practice.book.domain.posts.Posts;
 import com.practice.book.domain.posts.PostsRepository;
+import com.practice.book.domain.user.Role;
+import com.practice.book.domain.user.User;
 import com.practice.book.web.dto.PostsSaveRequestsDto;
 import com.practice.book.web.dto.PostsUpdateRequestDto;
 import org.junit.jupiter.api.AfterEach;
@@ -14,6 +17,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -44,6 +48,8 @@ class PostsApiControllerTest {
 
     private MockMvc mockMvc;
 
+    private SessionUser sessionUser;
+
 //    @BeforeEach
     @BeforeEach
     public void setup() {
@@ -51,6 +57,11 @@ class PostsApiControllerTest {
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
+
+        sessionUser = new SessionUser(
+                User.builder().name("작성자").email("aaa").role(Role.USER).build()
+        );
+
     }
 
     @AfterEach
@@ -111,11 +122,16 @@ class PostsApiControllerTest {
         PostsUpdateRequestDto requestDto = PostsUpdateRequestDto.builder()
                 .title("변경한 제목")
                 .content("변경한 내용")
+                .author("작성자")
                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/posts/" + savedPosts.getId();
 
         HttpEntity<PostsUpdateRequestDto> postsUpdateRequestDtoHttpEntity = new HttpEntity<>(requestDto);
+        MockHttpSession session = new MockHttpSession();
+//        session.setAttribute("user",sessionUser);
+        session.putValue("user",sessionUser);
+
 
         /*
         //when
@@ -132,6 +148,7 @@ class PostsApiControllerTest {
         //when
         mockMvc.perform(put(url)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .session(session)
                         .content(new ObjectMapper().writeValueAsString(requestDto)))
                 .andExpect(status().isOk());
 
