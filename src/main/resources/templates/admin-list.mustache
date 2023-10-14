@@ -1,0 +1,54 @@
+{{>layout/header}}
+<br>
+<br>
+<h4>회원목록</h4>
+<table class="table table-horizontal table-bordered">
+    <thead class="thead-strong">
+    <tr>
+        <th style="width: 200px">User Seq</th>
+        <th>가입 이름</th>
+        <th>이메일</th>
+        <th>Role</th>
+        <th>처리</th>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+    {{#user}}
+    <tr>
+        <td >{{id}}</td>
+        <td>{{name}}</td>
+        <td>{{email}}</td>
+        <td>{{role}}</td>
+        <td><button type="button" class="btn btn-info active" id="btn-withdraw" value="{{id}}">탈퇴 처리</button></td>
+    </tr>
+    {{/user}}
+    </tbody>
+</table>
+
+<br>
+<br>
+<h4>회원목록</h4>
+<table class="table table-horizontal table-bordered">
+    <thead class="thead-strong">
+    <tr>
+        <th style="width: 200px">게시글번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>최종수정일</th>
+        <th>처리</th>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+    {{#posts}}
+        <tr>
+            <td id="id">{{id}}</td>
+            <td><a href="/posts/update/{{id}}">{{title}}</a></td>
+            <td id="author">{{author}}</td>
+            <td>{{modifiedDate}}</td>
+            <td><button type="button" class="btn btn-info active" id="btn-delete">삭제 처리</button></td>
+        </tr>
+    {{/posts}}
+    </tbody>
+</table>
+
+{{>layout/footer}}

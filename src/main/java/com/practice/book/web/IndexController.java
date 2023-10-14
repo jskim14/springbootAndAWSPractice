@@ -3,6 +3,8 @@ package com.practice.book.web;
 import com.practice.book.config.auth.LoginUser;
 import com.practice.book.config.auth.dto.SessionUser;
 import com.practice.book.domain.posts.PostsService;
+import com.practice.book.domain.user.Role;
+import com.practice.book.domain.user.UserService;
 import com.practice.book.web.dto.AlertMsgDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ public class IndexController {
 
     private final PostsService postsService;
     private final HttpSession httpSession;
+    private final UserService userService;
 
     /*
     * 메인페이지 로딩
@@ -65,5 +68,16 @@ public class IndexController {
         model.addAttribute("post", postsService.findById(id));
 
         return "posts-update";
+    }
+
+    @GetMapping("/admin/list")
+    public String userList(Model model, @LoginUser SessionUser user) {
+        if(user != null && user.getRole().equals(Role.ADMIN)){
+            model.addAttribute("user", userService.findAll());
+            model.addAttribute("posts", postsService.findAllDesc());
+            return "admin-list";
+        }
+        model.addAttribute("alertParam", new AlertMsgDto("관리자만 접근이 가능합니다!!!", "/"));
+        return "alert-page";
     }
 }

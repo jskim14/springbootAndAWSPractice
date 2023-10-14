@@ -1,6 +1,7 @@
 package com.practice.book.domain.posts;
 
 import com.practice.book.config.auth.dto.SessionUser;
+import com.practice.book.domain.user.Role;
 import com.practice.book.web.dto.PostResponseDto;
 import com.practice.book.web.dto.PostsDeleteRequestDto;
 import com.practice.book.web.dto.PostsListReponseDto;
@@ -57,7 +58,7 @@ public class PostsService {
     }
 
     public void userCheck(SessionUser user, String author) {
-        if(!user.getName().equals(author)) {
+        if(!(user.getRole().equals(Role.ADMIN) || user.getName().equals(author))) {
             throw new IllegalArgumentException("글 작성자가 아닙니다.");
         }
     }
