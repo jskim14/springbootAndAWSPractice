@@ -3,7 +3,6 @@ package com.practice.book.web;
 import com.practice.book.config.auth.LoginUser;
 import com.practice.book.config.auth.dto.SessionUser;
 import com.practice.book.domain.posts.PostsService;
-import com.practice.book.domain.user.Role;
 import com.practice.book.domain.user.UserService;
 import com.practice.book.web.dto.AlertMsgDto;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +48,16 @@ public class IndexController {
     }
 
     /*
+    * 인증 실패시 alert 창 반환
+    * */
+    @GetMapping("/authError")
+    public String authError(Model model) {
+        model.addAttribute("alertParam", new AlertMsgDto("권한이 없습니다.", "/"));
+
+        return "alert-page";
+    }
+
+    /*
     * 글 등록 페이지 반환
     * */
     @GetMapping("/posts/save")
@@ -70,14 +79,14 @@ public class IndexController {
         return "posts-update";
     }
 
+    /*
+    * 관리자 페이지
+    * */
     @GetMapping("/admin/list")
-    public String userList(Model model, @LoginUser SessionUser user) {
-        if(user != null && user.getRole().equals(Role.ADMIN)){
-            model.addAttribute("user", userService.findAll());
-            model.addAttribute("posts", postsService.findAllDesc());
-            return "admin-list";
-        }
-        model.addAttribute("alertParam", new AlertMsgDto("관리자만 접근이 가능합니다!!!", "/"));
-        return "alert-page";
+    public String userList(Model model) {
+        model.addAttribute("user", userService.findAll());
+        model.addAttribute("posts", postsService.findAllDesc());
+
+        return "admin-list";
     }
 }
