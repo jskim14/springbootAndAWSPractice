@@ -12,7 +12,7 @@
         <div class="col-md-6">
             <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
             {{#userInfo}}
-                Logged in as: <span id="user">{{userInfo.name}}</span>
+                Logged in as: <span id="user">{{userInfo.name}}({{userInfo.email}})</span>
                 <a href="/logout" class="btn btn-info active" role="button">Logout</a>
                 <button type="button" class="btn btn-warning active" id="btn-withdraw" value="{{userInfo.id}}">회원 탈퇴</button>
             {{/userInfo}}
