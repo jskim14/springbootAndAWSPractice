@@ -23,10 +23,13 @@
 - [2차개발] - 1차개발에서 다루지 않은 필요기능 추가개발
 - 2023.09.20 ~ 2023.09.30
  - 가입이후에 부여된 권한 및 글쓰기 권한 조정
- - parameter validation
+ - Parameter validation 적용
  - Common Response 형식 생성 에러반환 (json에러 형식)
  - 글 작성 페이지 수정
     - 작성자에 로그인한 사람 이름
- - Oauth로그인 페이지 수정 (/login)
+ - Spring security 로그인 페이지 수정 (/login)
  - 회원탈퇴 기능 추가
+- [추가개발]
+ - 글 수정, 삭제 시에 작성자 확인 로직 추가
  - 관리자 권한 추가 (관리자는 글 삭제, 회원탈퇴를 관리자페이지에서 할 수 있음)
+ - Travis 자동배포 적용 : master branch merge시에 자동 빌드 후 배포 / develop branch 생성 (feature>develop>master)
